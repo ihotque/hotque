@@ -1,0 +1,38 @@
+{
+	"_comment": "a json spec of naazha chat",
+	"_mustItem": "all of below",
+	"_comment_type": {
+		"_type_ticket": "attach to a ticket",
+		"_type_message": "message list",
+		"_type_post": "attach to a post",
+		"_type_vote": "attach to a vote",
+	},
+
+	"version": "0.0.1",
+	"chatID": "54321543215432154321",
+	"expireTime": "2016-06-10 05:00:00",
+	"groupID": "0",
+	"contentList": [
+		{
+			"contentID": "1",
+			"parentContentID": "0",
+			"speakerID": "123412341234",
+			"content": "hello tester002",
+			"createTime": "2016-06-09 05:00:00",
+		},
+		{
+			"contentID": "2",
+			"parentContentID": "0",
+			"speakerID": "432143214321",
+			"content": "hello tester001",
+			"createTime": "2016-06-09 05:00:01",
+		},
+		{
+			"contentID": "3",
+			"parentContentID": "1",
+			"speakerID": "432143214321",
+			"content": "how are you doing?",
+			"createTime": "2016-06-09 05:00:02",
+		}
+	],
+}

@@ -1,0 +1,30 @@
+{
+	"_comment": "a json spec of naazha ticket",
+	"_mustItem": "all of below",
+
+	"version": "0.0.1",
+	"cargoID": "43214321432143214321",
+	"description": "a box of fruit",
+	"size": "1", 
+	"_comment_size": {
+		"0": "none", 
+		"1": "60cm",
+		"2": "80cm",
+		"3": "100cm",
+		"4": "140cm",
+		"5": "160cm",
+		"6": "larger"
+	},
+	"weight": "1",
+	"_comment_weight": {
+		"0": "none",
+		"1": "2kg",
+		"2": "5kg",
+		"3": "10kg",
+		"4": "20kg",
+		"5": "30kg",
+		"6": "heavier",
+	},
+	"coldDelivery": "0", "_comment_coldDelivery": {"0": "no", "1": "yes"},
+	"share": "0", "_comment_share": {"0": "no", "1": "yes"},
+}

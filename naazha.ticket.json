@@ -1,0 +1,24 @@
+{
+	"_comment": "a json spec of naazha ticket",
+	"_mustItem": "all of below",
+
+	"version": "0.0.1",
+	"ticketID": "12341234123412341234",
+	"senderID": "123412341234",
+	"receiverID": "432143214321",
+	"carrierID": "123456123456",
+	"sendTime": "2016-06-06 05:00:00",
+	"receiveTime": "2016-06-06 09:00:00",
+	"routeID": "11223344556677889900",
+	"cargoID": "43214321432143214321",
+	"price": "600",
+	"priceUnit": "0",
+	"_comment_priceUnit": {
+		"0": "default, refer to user setting",
+		"1": "JPY",
+		"2": "USD",
+		"3": "RMB"
+	},
+	"payMethod": "0", "_comment_payMethod": {"0": "point", "1": "credit card"},
+	"chatID": "54321543215432154321",
+}
