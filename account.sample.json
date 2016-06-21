@@ -1,0 +1,92 @@
+{
+	"_comment": "a json spec of naazha user",
+	"_mustItem": "version, userID, nickname, primaryEmail, certification, telephone",
+
+	"version": "0.0.1",
+	"userID": "123412341234",
+	"nickname": "naazhatester001",
+	"certification": "1", "_comment_certification": "0:none, 1:driverLicense, 2:residenceCard",
+	"certificationInfo": {
+		"id": "001002003",
+		"address": "1420033, Tokyo, Japan",
+		"expireDate": "2018-06-01"
+	},
+	"telephone": "09876543210",
+	"primaryEmail": "tester0010@naazha.com",
+	"secondaryEmail": "tester0011@naazha.com",
+	"givenName": "tester001",
+	"familyName": "hotque",
+	"middleName": "a",
+	"avatar": "/pic/icon_tester001.jpg",
+	"sessionID": "0123456789abcdefghij",
+	"loginStatus": "on", "_comment_loginStatus": "on, off, dormant",
+	"gender": "male", "_comment_gender": "male, female, other",
+	"address": "1420033, Tokyo, Japan",
+	"loginTime": "2016-06-01 08:00:00",
+	"lastLogoutTime": "2016-06-01 07:00:00",
+	"createTime": "2016-06-01 05:00:00",
+	"modifyTime": "2016-06-01 06:00:00",
+	"friends": [
+		{
+			"userID": "01234567890123456788",
+			"rank": "1"
+		},
+		{
+			"userID": "01234567890123456789",
+			"rank": "2"
+		}
+	],
+	"group": [
+		{
+			"groupID": "98765432109876543210",
+			"rank": "1"
+		},
+		{
+			"groupID": "98765432109876543211",
+			"rank": "2"
+		}
+	]
+}
+{
+	"_comment": "a json spec of account",
+	"_mustItem": "version, userID, nickname, domainName",
+
+	"version": "0.0.1",
+	"userID": "18446744073709551615",
+	"avatar": "/pic/icon_tester001.jpg",
+	"primaryEmail": "tester001@hotque.com",
+	"givenName": "tester001",
+	"familyName": "hotque",
+	"middleName": "a",
+	"nickname": "ilovetest001",
+	"domainName": "tester_group_01",
+	"sessionID": "0123456789abcdefghij",
+	"openStatus": "public", "_comment_openStatus": "public, protect, private",
+	"loginStatus": "on", "_comment_loginStatus": "on, off, dormant",
+	"gender": "male", "_comment_gender": "male, female, other, none",
+	"location": "1420033, Tokyo, Japan",
+	"loginTime": "2016-06-01 08:00:00",
+	"lastLogoutTime": "2016-06-01 07:00:00",
+	"createTime": "2016-06-01 05:00:00",
+	"modifyTime": "2016-06-01 06:00:00",
+	"friends": [
+		{
+			"userID": "01234567890123456788",
+			"rank": "1"
+		},
+		{
+			"userID": "01234567890123456789",
+			"rank": "2"
+		}
+	],
+	"group": [
+		{
+			"groupID": "98765432109876543210",
+			"rank": "1"
+		},
+		{
+			"groupID": "98765432109876543211",
+			"rank": "2"
+		}
+	]
+}
