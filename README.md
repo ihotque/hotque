@@ -25,5 +25,6 @@ nodejs + nginx + mongodb
 
 5. personal check
 5.1 either owner or masters needs personal confirm.
-5.2 many methods: email confirm, mobile confirm, certificate paper(driver liscense, passport and so on)
+5.2 many methods: email confirm, mobile confirm, certificate paper(driver liscense, passport and so on) or other web site account.
+
 
