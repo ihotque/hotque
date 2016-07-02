@@ -84,26 +84,11 @@ CREATE TABLE IF NOT EXISTS `ban_text` (
 	FOREIGN KEY(remover_id) REFERENCES account(id)
 );
 
-DROP TABLE IF EXISTS `group_public`;
-CREATE TABLE IF NOT EXISTS `group_public` (
+DROP TABLE IF EXISTS `group`;
+CREATE TABLE IF NOT EXISTS `group` (
 	id VARCHAR(64) PRIMARY KEY,
 	name VARCHAR(256) NOT NULL UNIQUE,
-	is_need_request BOOLEAN DEFAULT 0,
-	creater_id VARCHAR(64) NOT NULL,
-	create_datetime DATETIME NOT NULL,
-	blocker_id VARCHAR(64) NOT NULL,
-	block_datetime DATETIME DEFAULT 0,
-	remover_datetime DATETIME DEFAULT 0,
-	remove_datetime DATETIME DEFAULT 0,
-	FOREIGN KEY(creater_id) REFERENCES account(id),
-	FOREIGN KEY(blocker_id) REFERENCES account(id),
-	FOREIGN KEY(remover_id) REFERENCES account(id)
-);
-
-DROP TABLE IF EXISTS `group_domain`;
-CREATE TABLE IF NOT EXISTS `group_domain` (
-	id VARCHAR(64) PRIMARY KEY,
-	name VARCHAR(256) NOT NULL UNIQUE,
+	kind VARCHAR(64) DEFAULT 0,
 	is_need_request BOOLEAN DEFAULT 0,
 	creater_id VARCHAR(64) NOT NULL,
 	create_datetime DATETIME NOT NULL,

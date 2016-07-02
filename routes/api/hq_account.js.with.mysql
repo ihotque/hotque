@@ -5,28 +5,40 @@ var mg_domain = require('../../hq_mongo').domain;
 var mg_account = require('../../hq_mongo').account;
 var mg_ban_domain = require('../../hq_mongo').ban_domain;
 var mg_ban_account = require('../../hq_mongo').ban_account;
+/*
+var db = require('../../hq_mysql_con');
+*/
 
 router.route('/')
   .post(function(req, res) {
+/*
+    // add to db
+    var is_new_domain = req.body.is_new_domain;
+    var domain_name = req.body.domain_name;
+    var account_name = req.body.account_name;
+    var domain = [];
+    cache_user.find({'name': domain_name})
+        cache_user.find(function(err, cache_result) {
+    if (is_new_domain) {
+      db.query('select * from `domain` where `name` = ?', [req.body.domain_name], function (err, result) {
+        if (err) {
+          console.err("err: search domain " + req.body.domain_name + err.stack);
+          res.status(500).send('err: domain ' + req.body.domain_name + ' not exist!');
+        } else {
+          while (1) {
+            var current_date = (new Date()).valueOf().toString();
+            var domain_id = farmhash.hash64(new Buffer(current_date + domain_name));
+          }
+          db.query('insert into domain ?', {}, function (err, result) {
+          });
+        }
+      });
+    }
+*/
+
+    // add to cache
     var domain = new mg_domain();
     domain.name = req.body.name;
-
-    var ban_domain = new mg_ban_domain();
-    ban_domain.findOne({"name", domain.name}, function(err, get_ban_domain){
-      if (err) {
-        res.send(err);
-      } else if (get_ban_domain) {
-        res.json({mesage: 'domain name ' + domain.name + ' is banned!'});
-      }
-    });
-
-    domain.findOne({"name", domain.name}, function(err, get_domain){
-      if (err) {
-        res.send(err);
-      } else if (get_domain) {
-        res.json({mesage: 'domain name ' + domain.name + ' exists!'});
-      }
-    });
 
     user.save(function(err) {
       if (err)
@@ -37,12 +49,34 @@ router.route('/')
   })
   
   .get(function(req, res) {
+    //get from catch
     cache_user.find(function(err, mg_result) {
       if (err)
         res.send(err);
       else
         res.json(mg_result);
     });
+
+/*
+    //get from db
+    var get_result = [];
+    db.query('select * from account', {}, function(err, db_result) {
+      if (err) {
+        res.send(err);
+      } else {
+        get_result.push({from: "db", entry: db_result});
+
+        //get from catch
+        cache_user.find(function(err, cache_result) {
+          if (err)
+            res.send(err);
+          else
+            get_result.push({from: "cache", entry: cache_result});
+            res.json(get_result);
+        });
+      }
+    });
+*/
 
   });
 
