@@ -64,7 +64,7 @@ router.route('/')
       }
     }
 
-    domain.findById(function(err, domain) {
+    domain.find(function(err, domain) {
       if (err) {
         console.error(err.statck);
         res.send(404, err);
@@ -72,7 +72,7 @@ router.route('/')
         console.log('get domains');
         res.json(200, {domains: domain});
       } else {
-        console.log('get no domain ');
+        console.log('get no domain');
         res.json(204, {message: 'get no domain'});
       }
     });
