@@ -22,8 +22,10 @@ CREATE TABLE IF NOT EXISTS `account` (
 	id VARCHAR(64) PRIMARY KEY,
 	name VARCHAR(256) NOT NULL UNIQUE,
 	domain_id VARCHAR(64),
+	is_confirmed BOOLEAN DEFAULT 0,
 	is_domain_owner BOOLEAN DEFAULT 0,
 	is_domain_master BOOLEAN DEFAULT 0,
+	is_need_invite_group BOOLEAN DEFAULT 0,
 	open_status INT DEFAULT 0, -- 0:public, 1:domain, 2:private
 	profile_pic VARCHAR(1024) DEFAULT NULL,
 	primary_email VARCHAR(1024) NOT NULL,
@@ -46,15 +48,72 @@ CREATE TABLE IF NOT EXISTS `account` (
 	FOREIGN KEY(domain_id) REFERENCES domain(id)
 );
 
-DROP TABLE IF EXISTS `group`;
-CREATE TABLE IF NOT EXISTS `group` (
+DROP TABLE IF EXISTS `ban_domain`;
+CREATE TABLE IF NOT EXISTS `ban_domain` (
 	id VARCHAR(64) PRIMARY KEY,
 	name VARCHAR(256) NOT NULL UNIQUE,
 	creater_id VARCHAR(64) NOT NULL,
 	create_datetime DATETIME NOT NULL,
-	block_datetime DATETIME DEFAULT 0,
+	remover_id VARCHAR(64) DEFAULT 0,
 	remove_datetime DATETIME DEFAULT 0,
-	FOREIGN KEY(creater_id) REFERENCES account(id)
+	FOREIGN KEY(creater_id) REFERENCES account(id),
+	FOREIGN KEY(remover_id) REFERENCES account(id)
+);
+
+DROP TABLE IF EXISTS `ban_account`;
+CREATE TABLE IF NOT EXISTS `ban_account` (
+	id VARCHAR(64) PRIMARY KEY,
+	name VARCHAR(256) NOT NULL UNIQUE,
+	creater_id VARCHAR(64) NOT NULL,
+	create_datetime DATETIME NOT NULL,
+	remover_id VARCHAR(64) DEFAULT 0,
+	remove_datetime DATETIME DEFAULT 0,
+	FOREIGN KEY(creater_id) REFERENCES account(id),
+	FOREIGN KEY(remover_id) REFERENCES account(id)
+);
+
+DROP TABLE IF EXISTS `ban_text`;
+CREATE TABLE IF NOT EXISTS `ban_text` (
+	id VARCHAR(64) PRIMARY KEY,
+	text VARCHAR(256) NOT NULL UNIQUE,
+	creater_id VARCHAR(64) NOT NULL,
+	create_datetime DATETIME NOT NULL,
+	remover_id VARCHAR(64) DEFAULT 0,
+	remove_datetime DATETIME DEFAULT 0,
+	FOREIGN KEY(creater_id) REFERENCES account(id),
+	FOREIGN KEY(remover_id) REFERENCES account(id)
+);
+
+DROP TABLE IF EXISTS `group_public`;
+CREATE TABLE IF NOT EXISTS `group_public` (
+	id VARCHAR(64) PRIMARY KEY,
+	name VARCHAR(256) NOT NULL UNIQUE,
+	is_need_request BOOLEAN DEFAULT 0,
+	creater_id VARCHAR(64) NOT NULL,
+	create_datetime DATETIME NOT NULL,
+	blocker_id VARCHAR(64) NOT NULL,
+	block_datetime DATETIME DEFAULT 0,
+	remover_datetime DATETIME DEFAULT 0,
+	remove_datetime DATETIME DEFAULT 0,
+	FOREIGN KEY(creater_id) REFERENCES account(id),
+	FOREIGN KEY(blocker_id) REFERENCES account(id),
+	FOREIGN KEY(remover_id) REFERENCES account(id)
+);
+
+DROP TABLE IF EXISTS `group_domain`;
+CREATE TABLE IF NOT EXISTS `group_domain` (
+	id VARCHAR(64) PRIMARY KEY,
+	name VARCHAR(256) NOT NULL UNIQUE,
+	is_need_request BOOLEAN DEFAULT 0,
+	creater_id VARCHAR(64) NOT NULL,
+	create_datetime DATETIME NOT NULL,
+	blocker_id VARCHAR(64) NOT NULL,
+	block_datetime DATETIME DEFAULT 0,
+	remover_datetime DATETIME DEFAULT 0,
+	remove_datetime DATETIME DEFAULT 0,
+	FOREIGN KEY(creater_id) REFERENCES account(id),
+	FOREIGN KEY(blocker_id) REFERENCES account(id),
+	FOREIGN KEY(remover_id) REFERENCES account(id)
 );
 
 DROP TABLE IF EXISTS `member`;
@@ -62,6 +121,8 @@ CREATE TABLE IF NOT EXISTS `member` (
 	id VARCHAR(64) PRIMARY KEY,
 	account_id VARCHAR(64) NOT NULL,
 	group_id VARCHAR(64) NOT NULL,
+	is_invited BOOLEAN DEFAULT 0,
+	is_approved BOOLEAN DEFAULT 0,
 	create_datetime DATETIME NOT NULL,
 	blocker_id VARCHAR(64) NOT NULL,
 	block_datetime DATETIME DEFAULT 0,
