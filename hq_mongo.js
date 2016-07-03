@@ -254,23 +254,23 @@ var TagSchema = new Schema ({
 }, { collection: 'tag' });
 
 module.exports = {
-  domain: mongoose.model('Domain', DomainSchema);
-  account: mongoose.model('Account', AccountSchema);
-  ban_domain: mongoose.model('BanDomain', BanDomainSchema);
-  ban_account: mongoose.model('BanAccount', BanAccountSchema);
-  ban_text: mongoose.model('BanText', BanTextSchema);
-  group: mongoose.model('Group', GroupSchema);
-  member: mongoose.model('Member', MemberSchema);
-  follow: mongoose.model('Follow', FollowSchema);
-  block: mongoose.model('Block', BlockSchema);
-  article: mongoose.model('Article', ArticleSchema);
-  note: mongoose.model('Note', NoteSchema);
-  schedule: mongoose.model('Schedule', ScheduleSchema);
-  task: mongoose.model('Task', TaskSchema);
-  actor: mongoose.model('Actor', ActorSchema);
-  report: mongoose.model('Report', ReportSchema);
-  comment: mongoose.model('Comment', CommentSchema);
-  chat: mongoose.model('Chat', ChatSchema);
-  tap: mongoose.model('Chat', TapSchema);
-  tag: mongoose.model('Chat', TagSchema);
+  domain: mongoose.model('Domain', DomainSchema),
+  account: mongoose.model('Account', AccountSchema),
+  ban_domain: mongoose.model('BanDomain', BanDomainSchema),
+  ban_account: mongoose.model('BanAccount', BanAccountSchema),
+  ban_text: mongoose.model('BanText', BanTextSchema),
+  group: mongoose.model('Group', GroupSchema),
+  member: mongoose.model('Member', MemberSchema),
+  follow: mongoose.model('Follow', FollowSchema),
+  block: mongoose.model('Block', BlockSchema),
+  article: mongoose.model('Article', ArticleSchema),
+  note: mongoose.model('Note', NoteSchema),
+  schedule: mongoose.model('Schedule', ScheduleSchema),
+  task: mongoose.model('Task', TaskSchema),
+  actor: mongoose.model('Actor', ActorSchema),
+  report: mongoose.model('Report', ReportSchema),
+  comment: mongoose.model('Comment', CommentSchema),
+  chat: mongoose.model('Chat', ChatSchema),
+  tap: mongoose.model('Tap', TapSchema),
+  tag: mongoose.model('Tag', TagSchema),
 }

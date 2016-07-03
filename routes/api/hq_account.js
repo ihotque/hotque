@@ -6,6 +6,7 @@ var mg_account = require('../../hq_mongo').account;
 var mg_ban_domain = require('../../hq_mongo').ban_domain;
 var mg_ban_account = require('../../hq_mongo').ban_account;
 
+/*
 router.route('/')
   .post(function(req, res) {
     var domain = new mg_domain();
@@ -82,4 +83,5 @@ router.route('/:user_id')
     });
   });
 
+*/
 module.exports = router;
