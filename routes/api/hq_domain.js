@@ -54,6 +54,39 @@ router.route('/id/:id')
       console.log("get_domain_by_id " + req.params.id + " " + domain);
       return res.status(200).json(domain);
     });
+  })
+
+  .put(function(req, res) {
+    mg_domain.findOne({_id: req.params.id}, function(err, update_domain){
+      if (err) {
+       console.error('update domain: error ' + err.stack);
+        return res.status(404).json({message: req.params.id + " " + err.stack});
+      }
+
+      update_domain.name = req.body.name;
+
+      update_domain.save(function(err) {
+        if (err) {
+          console.error('update domain: error ' + err.stack);
+          res.send(err);
+        } else {
+          console.log('update domain: id ' + req.params.id + ' updated.');
+          res.status(200).json({message: 'update domain: id ' + req.params.id+ ' ' + update_domain});
+        }
+      });
+    });
+  })
+
+  .delete(function(req, res) {
+    mg_domain.remove({_id: req.params.id}, function(err, domain) {
+      if (err) {
+        console.error('delete domain: error ' + err.stack);
+        return res.status(404).json({message: req.params.id + err.stack});
+      } else {
+        console.log('delete domain: id ' + req.params.id + ' deleted.');
+        return res.status(200).json({message: 'delete domain: id ' + req.params.id + ' deleted.'});
+      }
+    });
   });
 
 router.route('/name/:name')
@@ -66,6 +99,39 @@ router.route('/name/:name')
 
       console.log("get_domain_by_name " + req.params.name + " " + domain);
       return res.status(200).json(domain);
+    });
+  })
+
+  .put(function(req, res) {
+    mg_domain.findOne({"name": req.params.name}, function(err, update_domain){
+      if (err) {
+        console.error('update domain: error ' + err.stack);
+        return res.status(404).json({message: req.params.name + " " + err.stack});
+      }
+
+      update_domain.name = req.body.name;
+
+      update_domain.save(function(err) {
+        if (err) {
+          console.error('update domain: error ' + err.stack);
+          res.send(err);
+        } else {
+          console.log('update domain: name ' + req.params.name + ' updated.');
+          res.status(200).json({message: 'update domain: name ' + req.params.name+ ' ' + update_domain});
+        }
+      });
+    });
+  })
+
+  .delete(function(req, res) {
+    mg_domain.remove({"name": req.params.name}, function(err, user) {
+      if (err) {
+        console.error('delete domain: error ' + err.stack);
+        return res.status(404).json({message: req.params.name + err.stack});
+      } else {
+        console.log('delete domain: name ' + req.params.name + ' deleted.');
+        return res.status(404).json({message: 'delete domain: name ' + req.params.name + ' deleted.'});
+      }
     });
   });
 
@@ -87,10 +153,6 @@ router.route('/')
       console.error('add domain: need name.');
       res.json(202, {message: 'add domain: need name'});
     }
-    if (get_ban_domain(req.body.name)) {
-      console.error('add domain: name ' + req.body.name + ' is banned.');
-      res.json(202, {message: 'add domain: name ' + req.body.name + ' is banned.'});
-    }
 
     if (get_domain_by_name(req.body.name)) {
       console.error('add domain: name ' + req.body.name + ' exist.');
@@ -108,50 +170,6 @@ router.route('/')
       } else {
         console.log('add domain: name ' + domain.name + ' created.');
         res.json(200, {message: 'add domain: name ' + domain.name + ' created.'});
-      }
-    });
-  })
-
-  .put(function(req, res) {
-    if (!req.body.id) {
-      console.error('update domain: need id.');
-      res.json(202, {message: 'update domain: need id'});
-    }
-    var update_domain = get_domain_by_id(req.body.id);
-    if (!update_domain) {
-      console.error('update domain: id ' + req.body.id + ' not exist.');
-      res.json(202, {message: 'update domain: id ' + req.body.id + ' not exist.'});
-    }
-
-    if (req.body.name && get_ban_domain(req.body.name)) {
-      console.error('update domain: name ' + req.body.name + ' is banned.');
-      res.json(202, {message: 'update domain: name ' + req.body.name + ' is banned.'});
-    }
-    update_domain.name = req.body.name;
-
-    update_domain.save(function(err) {
-      if (err) {
-        console.error('update domain: error ' + err.stack);
-        res.send(err);
-      } else {
-        console.log('update domain: id ' + update_domain.id + ' updated.');
-        res.json(200, {message: 'update domain: name ' + update_domain.name + ' id ' + update_domain.id + ' updated.'});
-      }
-    });
-  })
-
-  .delete(function(req, res) {
-    if (!req.body.id) {
-      console.error('delete domain: need id.');
-      res.json(202, {message: 'delete domain: need id'});
-    }
-    mg_domain.remove({_id: req.params.id}, function(err, user) {
-      if (err) {
-        console.error('delete domain: error ' + err.stack);
-        res.send(err);
-      } else {
-        console.log('delete domain: id ' + update_domain.id + ' deleted.');
-        res.json(200, {message: 'delete domain: id ' + req.params.id + ' deleted.'});
       }
     });
   });
