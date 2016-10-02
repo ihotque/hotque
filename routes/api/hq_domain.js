@@ -49,6 +49,8 @@ function get_domain_by_name (name) {
 
 router.route('/id/:id')
   .get(function(req, res) {
+    return get_domain_by_id(req.params.id);
+/*
     mg_domain.findOne({"_id": req.params.id}, function(err, result){
       if (err) {
         console.error(err.stack);
@@ -58,9 +60,13 @@ router.route('/id/:id')
       console.log('get domain: id=' + result.id + ', name=' + result.name);
       return res.status(200).json(result);
     });
+*/
   });
 
 router.route('/name/:name')
+  .get(function(req, res) {
+    return get_domain_by_name(req.params.name);
+  });
 /*
       var d = get_domain_by_id(req.query.id);
       if (d) {
