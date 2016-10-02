@@ -7,10 +7,8 @@ var mg_account = require('../../hq_mongo').account;
 var mg_ban_domain = require('../../hq_mongo').ban_domain;
 var mg_ban_account = require('../../hq_mongo').ban_account;
 
-var domain = new mg_domain();
-var ban_domain = new mg_ban_domain();
-
 function get_ban_domain (name) {
+  var ban_domain = new mg_ban_domain();
   mg_ban_domain.findOne({"name": name}, function(err, ban_domain){
     if (err) {
       console.error(err.stack);
@@ -22,7 +20,6 @@ function get_ban_domain (name) {
 };
 
 function get_domain_by_id (id) {
-  var domain = null;
   mg_domain.findOne({"_id": id}, function(err, domain){
     if (err) {
       console.error(err.stack);
@@ -35,7 +32,6 @@ function get_domain_by_id (id) {
 };
 
 function get_domain_by_name (name) {
-  var domain = null;
   mg_domain.findOne({"name": name}, function(err, domain){
     if (err) {
       console.error(err.stack);
@@ -49,56 +45,43 @@ function get_domain_by_name (name) {
 
 router.route('/id/:id')
   .get(function(req, res) {
-    return get_domain_by_id(req.params.id);
-/*
-    mg_domain.findOne({"_id": req.params.id}, function(err, result){
+    mg_domain.findOne({"_id": req.params.id}, function(err, domain){
       if (err) {
         console.error(err.stack);
-        return res.status(204).json({message: req.params.id + err.stack});
+        return res.status(404).json({message: req.params.id + err.stack});
       }
 
-      console.log('get domain: id=' + result.id + ', name=' + result.name);
-      return res.status(200).json(result);
+      console.log("get_domain_by_id " + req.params.id + " " + domain);
+      return res.status(200).json(domain);
     });
-*/
   });
 
 router.route('/name/:name')
   .get(function(req, res) {
-    return get_domain_by_name(req.params.name);
-  });
-/*
-      var d = get_domain_by_id(req.query.id);
-      if (d) {
-        console.log('get domain: id ' + req.query.id + ' name ' + d.name);
-        return res.status(200).json(d);
-      } else {
-        console.log('get domain: id ' + req.query.id + ' not exist.' + d);
-        return res.status(204).json({message: 'get domain no id ' + req.query.id});
+    mg_domain.findOne({"name": req.params.name}, function(err, domain){
+      if (err) {
+        console.error(err.stack);
+        return res.status(404).json({message: req.params.name + err.stack});
       }
-    } else if (req.query.name) {
-      var d = get_domain_by_name(req.query.name);
-      if (d) {
-        console.log('get domain: name ' + d.name);
-        return res.status(200).json(d);
-      } else {
-        console.log('get domain: name ' + req.query.name + ' not exist.');
-        return res.status(204).json({message: 'get domain: no name ' + req.query.name});
-      }
-    }
 
+      console.log("get_domain_by_name " + req.params.name + " " + domain);
+      return res.status(200).json(domain);
+    });
+  });
+
+router.route('/')
+  .get(function(req, res) {
     mg_domain.find(function(err, domains) {
       if (err) {
         console.error(err.stack);
-        return res.status(400).json( err);
+        return res.status(400).json(err);
       } else if (domains) {
         console.log('get domain: all');
         return res.status(200).json(domains);
       }
     });
-*/
+  })
 
-router.route('/')
   .post(function(req, res) {
     if (!req.body.name) {
       console.error('add domain: need name.');
@@ -114,6 +97,7 @@ router.route('/')
       res.json(202, {message: 'add domain: name ' + req.body.name + ' exists.'});
     }
 
+    var domain = new mg_domain();
     domain.name = req.body.name;
     var date = new Date();
     domain.create_datetime = date.toFormat('YYYY/MM/DD/ HH24:MI:SS');
@@ -155,7 +139,7 @@ router.route('/')
       }
     });
   })
-  
+
   .delete(function(req, res) {
     if (!req.body.id) {
       console.error('delete domain: need id.');
@@ -171,46 +155,5 @@ router.route('/')
       }
     });
   });
-
-/*
-router.route('/:name')
-  .get(function(req, res) {
-    d = get_domain(name);
-    if (d) {
-      console.log('get domain ' + d.name);
-      res.json(200, d);
-    } else {
-      console.log('get no domain ' + name);
-      res.json(204, {message: 'get no domain ' + name});
-    }
-  });
-
-router.route('/:id')
-  .put(function(req, res) {
-    cache_user.findById(id, function(err, user) {
-      if (err)
-        res.send(err);
-      user.id = req.body.id;
-      user.name = req.body.name;
-      user.age = req.body.age;
-
-      user.save(function(err) {
-        if (err)
-          res.send(err);
-        else
-          res.json({ message: 'User updated!' });
-      });
-    });
-  })
-  
-  .delete(function(req, res) {
-    cache_user.remove({_id: req.params.user_id}, function(err, user) {
-      if (err)
-        res.send(err);
-      else
-        res.json({ message: 'User deleted!' });
-    });
-  });
-*/
 
 module.exports = router;
